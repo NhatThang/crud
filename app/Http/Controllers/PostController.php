@@ -20,7 +20,7 @@ class PostController extends Controller
     public function addPostSubmit(Request $request) {
 
         $validateData = $request->validate([
-            'tittle' => 'required|min:5|max:200',
+            'tittle' => 'required|unique:posts|min:5|max:200',
             'body' => 'required|min:5|max:200',
         ]);
 
@@ -48,11 +48,17 @@ class PostController extends Controller
     }
 
     public function updatePost(Request $request) {
-        DB::table('posts')->where('id', $request->id)->update([
-            'tittle' => $request->tittle,
-            'body' => $request->body
+        $validateData = $request->validate([
+            'tittle' => 'required|unique:posts|min:5|max:100',
+            'body' => 'required|min:5|max:100'
         ]);
-
-        return back()->with('post_updated', 'Post has been updated successfully!');
+        if($validateData) {
+            // DB::table('posts')->where('id', $request->id)->update([
+            //     'tittle' => $request->tittle,
+            //     'body' => $request->body
+            // ]);
+            DB::table('posts')->where('id', $request->id)->update($validateData);
+            return back()->with('post_updated', 'Post has been updated successfully!');
+        }
     }
 }

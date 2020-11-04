@@ -10,7 +10,9 @@ class ClientController extends Controller
 
     public function getAllPosts() {
         $response = Http::get('https://jsonplaceholder.typicode.com/posts');
-        return $response->json();
+        echo "<pre>";
+        return var_dump($response->json());
+        echo "</pre>";
     }
 
     public function getPostsId($id) {

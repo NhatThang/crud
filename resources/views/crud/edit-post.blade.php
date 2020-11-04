@@ -21,11 +21,17 @@
                             <div class="form-group">
                                 <label for="tittle">Post Tittle</label>
                                 <input type="text" name="tittle" value="{{ $edit_post->tittle }}" class="form-control" placeholder="Enter Post Tittle">
+                                @error('tittle')
+                                    <small style="color: red">{{ $message }}</small>
+                                @enderror
                             </div>
 
                             <div class="form-group">
                                 <label for="body">Post Body</label>
                                 <textarea name="body" class="form-control" rows="3">{{ $edit_post->body }}</textarea>
+                                @error('body')
+                                    <small style="color: red">{{ $message }}</small>
+                                @enderror
                             </div>
                             <input type="submit" value="Update" class="btn btn-success">
                             <a href="{{ route('getallpost') }}" class="btn btn-warning">Back</a>
